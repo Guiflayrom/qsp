@@ -2,15 +2,13 @@
 from rich.console import Console
 from typer import Typer
 
-from qsp.options_manager import OptionsManager
-from qsp.project_configuration import FileArgument
-from qsp.project_configuration import TypeOption as Option
+from qsp.utils.cli import FileArgument, ParamsManager
+from qsp.utils.cli import TypeOption as Option
 
 from .categories import Categories
 
 django = Typer()
 console = Console()
-var_name = f"{django=}".partition("=")[0]
 
 
 @django.command()
@@ -18,7 +16,9 @@ def restapi(
     file: str = FileArgument(),
     docker: Option("docker compose", Categories.DEVOPS) = False,
     dockerfile: Option("dockerfile", Categories.DEVOPS) = False,
+    # fmt: off
     github_worflow4ec2: Option("github workflow EC2 instance via ssh", Categories.DEVOPS) = False,
+    # fmt: on
     black: Option("black", Categories.LINTER) = False,
     blue: Option("blue", Categories.LINTER) = False,
     flake8: Option("flake8", Categories.LINTER) = False,
@@ -46,5 +46,6 @@ def restapi(
     cherrypy: Option("cherrypy", Categories.WSGI) = False,
     waitress: Option("waitress", Categories.WSGI) = False,
 ):
-    manager = OptionsManager(file, locals())
-    console.log(manager.variables)
+    manager = ParamsManager(file, locals())
+    
+    

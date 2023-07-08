@@ -1,7 +1,7 @@
 import yaml
 
 
-class OptionsManager:
+class ParamsManager:
     def __init__(self, file, parameters) -> None:
         self.file = file
         if file:
@@ -11,5 +11,9 @@ class OptionsManager:
         else:
             self.variables = parameters
 
+    def __getitem__(self, key):
+        if key in self.variables:
+            return self.variables[key]
+
     def __str__(self) -> str:
-        return self.file
+        return str(self.variables)
