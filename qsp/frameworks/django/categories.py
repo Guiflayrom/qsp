@@ -1,0 +1,11 @@
+class Categories:
+    DEVOPS = "DevOps"
+    UTILS = "Utils"
+    LINTER = "Linters"
+    ORGANIZATION = "Organize"
+    MODEL_TEMPLATE = "Model Template"
+    ASGI = "ASGI Servers"
+    WSGI = "WSGI Servers"
+    MANAGER = "Python Package Manager"
+    DATABASE = "Database"
+    APP = "Django Application"
