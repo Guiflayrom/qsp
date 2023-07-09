@@ -1,8 +1,12 @@
 # from rich import inspect
-from qsp.utils.cli import FileArgument, ParamsManager
-from qsp.utils.cli import TypeOption as Option
+from os import path
+
 from rich.console import Console
 from typer import Typer
+
+from qsp.utils.cli import FileArgument, OutputArgument, ParamsManager
+from qsp.utils.cli import TypeOption as Option
+from qsp.utils.runner import Workflow
 
 from .categories import Categories
 from .validator import DjangoParamsValidator
@@ -13,7 +17,8 @@ console = Console()
 
 @django.command()
 def restapi(
-    file: str = FileArgument(),
+    template: str = FileArgument(),
+    output: str = OutputArgument(),
     docker: Option("docker compose", Categories.DEVOPS) = False,
     dockerfile: Option("dockerfile", Categories.DEVOPS) = False,
     # fmt: off
@@ -47,7 +52,15 @@ def restapi(
     waitress: Option("waitress", Categories.WSGI) = False,
 ):
     # Merge file variables with params
-    vmanager = ParamsManager(file, locals())
+    vmanager = ParamsManager(template, locals())
 
     # Validate params
     DjangoParamsValidator(vmanager.variables)
+
+    # Get workflow path
+    intern_path = path.dirname(path.abspath(__file__))
+    workflow_path = path.join(intern_path, "workflows/restapi.yml")
+
+    # Run workflow
+    workflow = Workflow(workflow_path)
+    workflow.run(vmanager.variables)
