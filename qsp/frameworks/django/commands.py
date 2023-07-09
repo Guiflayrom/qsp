@@ -1,11 +1,11 @@
 # from rich import inspect
+from qsp.utils.cli import FileArgument, ParamsManager
+from qsp.utils.cli import TypeOption as Option
 from rich.console import Console
 from typer import Typer
 
-from qsp.utils.cli import FileArgument, ParamsManager
-from qsp.utils.cli import TypeOption as Option
-
 from .categories import Categories
+from .validator import DjangoParamsValidator
 
 django = Typer()
 console = Console()
@@ -46,6 +46,8 @@ def restapi(
     cherrypy: Option("cherrypy", Categories.WSGI) = False,
     waitress: Option("waitress", Categories.WSGI) = False,
 ):
-    manager = ParamsManager(file, locals())
-    
-    
+    # Merge file variables with params
+    vmanager = ParamsManager(file, locals())
+
+    # Validate params
+    DjangoParamsValidator(vmanager.variables)
