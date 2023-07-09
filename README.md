@@ -40,6 +40,10 @@ qsp django --help
 qsp django restapi --help
 ```
 
+```sh
+qsp django restapi configuration.yml
+```
+
 The CLI will guide you through the process of setting up your project. Follow the prompts to provide project details, select a template, and customize the setup as needed.
 
 ## GUI Usage
