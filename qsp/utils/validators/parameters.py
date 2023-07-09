@@ -1,5 +1,6 @@
-from .rules import Rule
 from typing import List
+
+from .rules import Rule
 
 
 class ParamsValidator:
