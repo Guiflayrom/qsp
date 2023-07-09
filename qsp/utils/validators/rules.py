@@ -1,7 +1,8 @@
-from qsp.utils import find_all_strings
 from abc import ABC, abstractmethod
 from functools import wraps
 from typing import Callable
+
+from qsp.utils import find_all_strings
 from qsp.utils.exceptions import RulesExceptions
 
 
@@ -10,6 +11,7 @@ def validate_variables_decorator(validate_func) -> Callable:
     def wrapper(self, vmanager):
         self.validate_variables(vmanager)
         return validate_func(self, vmanager)
+
     return wrapper
 
 
@@ -28,7 +30,9 @@ class Rule(ABC):
             for parameter in find_all_strings(parameter_tl):
                 if parameter not in params_existents:
                     raise RulesExceptions.ParameterDoesntExist(
-                        RulesExceptions.ParameterDoesntExist.get_message(parameter, child_name)
+                        RulesExceptions.ParameterDoesntExist.get_message(
+                            parameter, child_name
+                        )
                     )
 
     @abstractmethod
@@ -48,7 +52,9 @@ class JustOneOfThese(Rule):
             _v = vmanager[item]
             if _v and not all(i is False for i in conditioned):
                 raise RulesExceptions.ConflictParam(
-                    RulesExceptions.ConflictParam.get_message(item, items[index - 1], str(items))
+                    RulesExceptions.ConflictParam.get_message(
+                        item, items[index - 1], str(items)
+                    )
                 )
 
             conditioned.append(_v)

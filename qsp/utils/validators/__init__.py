@@ -1,3 +1,3 @@
-from .validator import ParamsValidator
+from .parameters import ParamsValidator
 
 __all__ = [ParamsValidator]
