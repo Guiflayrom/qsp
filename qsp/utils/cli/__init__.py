@@ -1,4 +1,4 @@
 from .params_manager import ParamsManager
-from .typer import FileArgument, TypeOption
+from .typer import FileArgument, OutputArgument, TypeOption
 
-__all__ = [FileArgument, TypeOption, ParamsManager]
+__all__ = [FileArgument, TypeOption, ParamsManager, OutputArgument]

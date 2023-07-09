@@ -8,6 +8,12 @@ def FileArgument(help="You can use a YML file to load settings", show_default=Fa
     return Argument(None, help=help, show_default=show_default)
 
 
+def OutputArgument(
+    help="Define where the project going to be build", show_default=True
+):
+    return Argument(".", help=help, show_default=show_default)
+
+
 def TypeOption(
     help: str,
     category: str,
