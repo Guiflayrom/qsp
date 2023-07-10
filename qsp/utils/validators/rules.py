@@ -3,7 +3,7 @@ from functools import wraps
 from typing import Callable
 
 from qsp.utils import find_all_strings
-from qsp.utils.exceptions import RulesExceptions
+from qsp.exceptions import RulesExceptions
 
 
 def validate_variables_decorator(validate_func) -> Callable:
