@@ -1,4 +1,4 @@
-from qsp.exceptions import TemplateException
+from .template import TemplateException
 
 
 class RulesExceptions:

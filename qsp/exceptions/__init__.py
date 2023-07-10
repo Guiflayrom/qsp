@@ -1,12 +1,6 @@
-from abc import ABC, abstractstaticmethod
-
 from .rules import RulesExceptions
 from .workflow import WorkflowExceptions
+from .template import TemplateException
 
-__all__ = [RulesExceptions, WorkflowExceptions]
 
-
-class TemplateException(ABC):
-    @abstractstaticmethod
-    def get_message(self):
-        ...
+__all__ = [RulesExceptions, WorkflowExceptions, TemplateException]
