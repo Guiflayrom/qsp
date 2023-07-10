@@ -1,5 +1,8 @@
+from qsp.exceptions import TemplateException
+
+
 class RulesExceptions:
-    class ParameterDoesntExist(Exception):
+    class ParameterDoesntExist(Exception, TemplateException):
         def __init__(self, message: str) -> None:
             self.message = message
             super().__init__(self.message)
@@ -8,7 +11,7 @@ class RulesExceptions:
         def get_message(i1, i2) -> str:
             return f'The supposed parameter "{i1}" in rule "{i2}" do not exist'
 
-    class RequireParam(Exception):
+    class RequireParam(Exception, TemplateException):
         def __init__(self, message: str) -> None:
             self.message = message
             super().__init__(self.message)
@@ -17,7 +20,7 @@ class RulesExceptions:
         def get_message(i1, i2) -> str:
             return f'"{i1}" requires "{i2}"'
 
-    class ConflictParam(Exception):
+    class ConflictParam(Exception, TemplateException):
         def __init__(self, message: str) -> None:
             self.message = message
             super().__init__(self.message)
