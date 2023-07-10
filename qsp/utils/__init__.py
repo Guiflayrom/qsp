@@ -1,3 +1,3 @@
-from .utils import find_all_strings
+from .utils import Loader, find_all_strings
 
-__all__ = [find_all_strings]
+__all__ = [find_all_strings, Loader]
