@@ -1,12 +1,11 @@
 # from rich import inspect
 from os import path
 
-from rich.console import Console
-from typer import Typer
-
 from qsp.utils.cli import FileArgument, OutputArgument, ParamsManager
 from qsp.utils.cli import TypeOption as Option
 from qsp.utils.runner import Workflow
+from rich.console import Console
+from typer import Typer
 
 from .categories import Categories
 from .validator import DjangoParamsValidator
@@ -17,8 +16,8 @@ console = Console()
 
 @django.command()
 def restapi(
-    template: str = FileArgument(),
     output: str = OutputArgument(),
+    template: str = FileArgument(),
     docker: Option("docker compose", Categories.DEVOPS) = False,
     dockerfile: Option("dockerfile", Categories.DEVOPS) = False,
     # fmt: off
