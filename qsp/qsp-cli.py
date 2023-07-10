@@ -1,8 +1,7 @@
-from rich.console import Console
-from typer import Exit, Typer
-
 from qsp import __version__
 from qsp.frameworks import TYPERS
+from rich.console import Console
+from typer import Exit, Typer
 
 console = Console()
 app = Typer()

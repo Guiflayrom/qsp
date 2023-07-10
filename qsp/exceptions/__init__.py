@@ -1,6 +1,7 @@
+from abc import ABC, abstractstaticmethod
+
 from .rules import RulesExceptions
 from .workflow import WorkflowExceptions
-from abc import ABC, abstractstaticmethod
 
 __all__ = [RulesExceptions, WorkflowExceptions]
 
