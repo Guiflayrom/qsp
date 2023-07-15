@@ -51,9 +51,12 @@ class JustOneOfThese(Rule):
         for index, item in enumerate(items):
             _v = vmanager[item]
             if _v and not all(i is False for i in conditioned):
+                index_last_item = list(
+                    filter(lambda i: conditioned[i], range(len(conditioned)))
+                )[0]
                 raise RulesExceptions.ConflictParam(
                     RulesExceptions.ConflictParam.get_message(
-                        item, items[index - 1], str(items)
+                        item, items[index_last_item], str(items)
                     )
                 )
 

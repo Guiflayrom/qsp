@@ -1,22 +1,16 @@
-from qsp import __version__
-from qsp.frameworks import TYPERS
-from rich.console import Console
-from typer import Exit, Typer
+from typer import Typer
 
-console = Console()
+from qsp.utils.cli import add_version_callback
+from qsp.workflows import commands_subcommands
+
 app = Typer()
 
-
 # Version
-def version_func(flag):
-    if flag:
-        console.print(__version__)
-        raise Exit(code=0)
-
+add_version_callback(app)
 
 # Add Typers
-for FRAMEOWORK_TYPER in TYPERS:
-    app.add_typer(FRAMEOWORK_TYPER["typer"], name=FRAMEOWORK_TYPER["name"])
+for tinstance, tcommand in commands_subcommands():
+    app.add_typer(typer_instance=tinstance, name=tcommand)
 
 
 if "__main__" == __name__:

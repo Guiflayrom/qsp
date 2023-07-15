@@ -4,11 +4,20 @@ from .rules import Rule
 
 
 class ParamsValidator:
-    def __init__(self, vmanager) -> None:
-        self.vmanager = vmanager
+    """
+    Parameters validator, checker whether the rules are valid.
+    \nFunctions:\n
+    - add_rules()
+    - validate_rules()
+    """
+
+    def __init__(self) -> None:
         self.rules = []
 
     def add_rules(self, *rules: List[Rule]):
         for rule in rules:
-            rule.validate(self.vmanager)
             self.rules.append(rule)
+
+    def validate_rules(self, vmanager):
+        for rule in self.rules:
+            rule.validate(vmanager)

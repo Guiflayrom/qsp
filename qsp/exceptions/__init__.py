@@ -1,6 +1,5 @@
 from .rules import RulesExceptions
-from .workflow import WorkflowExceptions
 from .template import TemplateException
-
+from .workflow import WorkflowExceptions
 
 __all__ = [RulesExceptions, WorkflowExceptions, TemplateException]

@@ -1,0 +1,160 @@
+name: Django Rest API Configuration
+
+parameters:
+  - name: docker
+    type: Option
+    help: Generate a dockerfile
+    category: DevOps
+
+  - name: dockerfile
+    type: Option
+    help: Generate a dockerfile
+    category: DevOps
+
+  - name: gitignore_configurations
+    type: Option
+    help: Create a gitignore
+    category: DevOps
+
+  - name: github_workflow4ec2
+    type: Option
+    help: Generate a Github Workflow Actions Ec2 Instance Via Ssh   
+    category: DevOps
+
+  - name: black
+    type: Option
+    help: Use black as code formatter
+    category: Code Formatter
+
+  - name: blue
+    type: Option
+    help: Use blue as code formatter
+    category: Code Formatter
+
+  - name: flake8
+    type: Option
+    help: Use flake8 as linter
+    category: Linter
+
+  - name: user_model
+    type: Option
+    help: Create and configure a default User Model
+    category: Model Template
+  
+  - name: jwt
+    type: Option
+    help: Configure and expose all jwt configurations
+    category: Django Applications
+
+  - name: cors
+    type: Option
+    help: Configure and expose all CORS configurations
+    category: Django Applications
+
+  - name: logging
+    type: Option
+    help: Configure and expose all logging configurations
+    category: Django Applications
+
+  - name: swagger
+    type: Option
+    help: Configure and expose all swagger configurations
+    category: Django Applications
+
+  - name: redis
+    type: Option
+    help: Use redis as default cache manager
+    category: Database
+
+  - name: postgresql
+    type: Option
+    help: Use PostgreSQL as default database
+    category: Database
+
+  - name: mysql
+    type: Option
+    help: Use MySQL as default database
+    category: Database
+
+  - name: sqlite
+    type: Option
+    help: Use SQLite as default database
+    category: Database
+
+  - name: uvicorn
+    type: Option
+    help: Use Uvicorn as default ASGI Server
+    category: ASGI Server
+
+  - name: hypercorn
+    type: Option
+    help: Use Hypercorn as default ASGI Server
+    category: Database
+
+  - name: daphne
+    type: Option
+    help: Use Daphne as default ASGI Server
+    category: ASGI Server
+
+  - name: gunicorn
+    type: Option
+    help: Use Gunicorn as default WSGI Server
+    category: WSGI Server
+
+  - name: waitress
+    type: Option
+    help: Use Waitress as default WSGI Server
+    category: WSGI Server
+
+  - name: cherrypy
+    type: Option
+    help: Use CherryPy as default WSGI Server
+    category: WSGI Server
+
+  - name: uwsgi
+    type: Option
+    help: Use uWSGI as default WSGI Server
+    category: WSGI Server
+
+rules:
+  need:
+    - - docker
+      - dockerfile
+  onlyone:
+    - - black
+      - blue
+    - - postgresql
+      - sqlite
+      - mysql
+    - - uvicorn
+      - hypercorn
+      - daphne
+      - gunicorn
+      - cherrypy
+      - waitress
+      - uwsgi
+
+
+steps:
+  - name: Starting Django Project
+    
+    script_variables: 
+      - output
+    
+    script: |
+      pip install django
+      pip install djangorestframework
+      django-admin startproject api {{output}}
+
+    set_file: 
+      - target: api/settings.py
+        template:
+            - name: Not Split Settings
+              template: settings.tpl
+              if: split-settings
+              macro: get_django_version
+
+            - name: Split Settings
+              template: settings_splitted.tpl
+              if: not split-settings
+              macro: get_secret_key

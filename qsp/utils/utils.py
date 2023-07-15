@@ -61,3 +61,7 @@ class Loader:
     def __exit__(self, exc_type, exc_value, tb):
         # handle exceptions with those variables ^
         self.stop()
+
+
+def get_dynamic_function_string(function_name: str, function_parameters: str):
+    return f"@instance.command()\n@framework_command(validator, workflow=workflow, defaults=dynamic_function_defaults,name=function_name,)\ndef {function_name}({function_parameters}): pass"  # noqa
