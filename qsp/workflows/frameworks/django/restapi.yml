@@ -3,7 +3,7 @@ name: Django Rest API Configuration
 parameters:
   - name: docker
     type: Option
-    help: Generate a dockerfile
+    help: Generate a docker compose file
     category: DevOps
 
   - name: dockerfile
@@ -134,27 +134,39 @@ rules:
       - waitress
       - uwsgi
 
-
 steps:
-  - name: Starting Django Project
+  - name: Installing and starting a poetry project
+    script_variables: 
+    - output
+
+    script: |
+      pip install poetry
+      poetry new {{output}}
+
+  - name: Organizing poetry folder
+    macro: |
+      organize_poetry_folder
+
+  - name: Starting a Django project
     
     script_variables: 
       - output
     
     script: |
-      pip install django
-      pip install djangorestframework
-      django-admin startproject api {{output}}
+      poetry add django
+      poetry add djangorestframework
+      poetry shell
+      poetry install
+      poetry run django-admin startproject api {{output}}\src
+
+    set_file_variables:
+      - output
 
     set_file: 
-      - target: api/settings.py
-        template:
-            - name: Not Split Settings
-              template: settings.tpl
-              if: split-settings
-              macro: get_django_version
+      - target: '{{output}}\src\api\settings.py'
+        template: C:\Users\Guilherme\dev\qsp\qsp\workflows\frameworks\django\templates\settings_splitted.tpl
+        macro: default_django_settings
 
-            - name: Split Settings
-              template: settings_splitted.tpl
-              if: not split-settings
-              macro: get_secret_key
+  # - name: Running linter
+  #   script: |
+

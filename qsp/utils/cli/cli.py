@@ -28,8 +28,12 @@ def callback(
         is_flag=True,
     ),
 ):
-    message = "[yellow1]Usage[/yellow1]: qsp [FRAMEWORK] [TEMPLATE] [OPTIONS]\nTry: 'qsp --help' for help\n" # noqa
-    console.print(message)
+    if ctx.invoked_subcommand:
+        return
+
+    if not version:
+        message = "[yellow1]Usage[/yellow1]: qsp [FRAMEWORK] [TEMPLATE] [OPTIONS]\nTry: 'qsp --help' for help\n"  # noqa
+        console.print(message)
 
 
 def add_version_callback(app: Typer):

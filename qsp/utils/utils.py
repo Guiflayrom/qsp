@@ -3,6 +3,8 @@ from shutil import get_terminal_size
 from threading import Thread
 from time import sleep
 
+from rich import print as print_color
+
 
 def find_all_strings(nested_list) -> list:
     strings = []
@@ -55,8 +57,8 @@ class Loader:
     def stop(self):
         self.done = True
         cols = get_terminal_size((80, 20)).columns
-        print("\r" + " " * cols, end="", flush=True)
-        print(f"\r{self.end}", flush=True)
+        print("\r" + " " * cols, end="\r", flush=True)
+        print_color(f"{self.end}", flush=True)
 
     def __exit__(self, exc_type, exc_value, tb):
         # handle exceptions with those variables ^

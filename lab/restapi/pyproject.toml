@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "restapi"
+version = "0.1.0"
+description = ""
+authors = ["Guilherme <gui.dias.alves20@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

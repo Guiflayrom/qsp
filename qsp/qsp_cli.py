@@ -1,7 +1,7 @@
 from typer import Typer
 
 from qsp.utils.cli import add_version_callback
-from qsp.workflows import commands_subcommands
+from qsp.workflows.get_commands import commands_subcommands
 
 app = Typer()
 
