@@ -41,7 +41,7 @@ class Actions:
             raise TypeError("Macroname And Step Are Equal None.")
 
         if step:
-            macroname = step[Sections.macro]
+            macroname = step[self.sections.macro]
 
         for macro in MACROS_DJANGO:
             if macro.__name__ == macroname.replace("\n", ""):
@@ -68,8 +68,12 @@ class Actions:
                     )
                 )
 
-            if Sections.set_file_variables in step.keys():
-                print('hey')
+            if self.sections.set_file_variables in step.keys():
+                path_template = Template(table.target)
+                set_file_variables = {
+                    var: self.vmanager[var] for var in step[self.sections.set_file_variables]
+                }
+                table.target = path_template.render(set_file_variables)
 
             if not path.exists(table.target):
                 makedirs("\\".join(table.target.split("\\")[:-1]))
